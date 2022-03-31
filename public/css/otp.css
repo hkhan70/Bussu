@@ -1,0 +1,45 @@
+.container {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    align-items: space-around;
+    justify-content: center;
+}
+
+.userInput {
+    display: flex;
+    justify-content: center;
+}
+
+input {
+    margin: 10px;
+    height: 35px;
+    width: 45px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    font-family: arimo;
+    font-size: 1.2rem;
+    background: #eef2f3;
+}
+
+h1 {
+    text-align: center;
+    font-family: arimo;
+    color: honeydew;
+}
+
+.swal-wide {
+    width: 350px !important;
+    height: 350px !important;
+}
+
+.swal-login {
+    width: 400px !important;
+    height: 400px !important;
+}
+
+.swal-otp {
+    width: 350px !important;
+    height: 350px !important;
+}

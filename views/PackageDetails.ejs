@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/otp.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: url("../images/books.jpg");
+        }
+        /* Float four columns side by side */
+        
+        .column {
+            float: left;
+            width: 33.3%;
+            padding: 0 10px;
+        }
+        /* Remove extra left and right margins, due to padding */
+        
+        .row {
+            width: 70%;
+            margin: 0 auto;
+        }
+        /* Clear floats after the columns */
+        
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        /* Responsive columns */
+        
+        @media screen and (max-width: 600px) {
+            .column {
+                width: 100%;
+                display: block;
+                margin-bottom: 20px;
+            }
+        }
+        /* Style the counter cards */
+        
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            padding: 16px;
+            text-align: center;
+            background: linear-gradient(150deg, #39ef74, #4600f1 100%);
+            color: white;
+            border-radius: 15px;
+        }
+        
+        .card:hover {
+            transform: scale(1.1);
+            background: linear-gradient(150deg, #f731db, #4600f1 100%);
+            color: black;
+            opacity: 1;
+            transition: 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row" style=" height:100%; margin-top:200px">
+        <div style="background-color:rgb(49, 49, 49);padding: 5px;">
+            <h2 style="text-align: center;color:white;">Select Package For
+                <%= msisdn %>
+            </h2>
+
+            <% if (locals.network_type==1) { %>
+                <form action="/dailypackage" id="dailypackage" method="POST">
+                    <div class="column">
+                        <div class="card">
+                            <h2>Daily</h2>
+                            <h3>RS 4/Day</h3>
+                            <input type="hidden" name="daily" id="daily" value="jazz-sku-1-day">
+                            <input type="hidden" name="msisdn" id="msisdn" value="<%= msisdn %>">
+                            <button class="btnNext" id="daily" type="submit">
+                                    <a style="text-decoration: none;color:white;font-size: 18px;">Confirm</a></button>
+                        </div>
+                    </div>
+                </form>
+                <form action="/weeklypackage" id="weeklypackage" method="POST">
+                    <div class="column">
+                        <div class="card">
+                            <h2>Weekly</h2>
+                            <h3>RS 25/Week</h3>
+                            <input type="hidden" name="weekly" id="weekly" value="jazz-sku-7-days">
+                            <input type="hidden" name="msisdn" id="msisdn" value="<%= msisdn %>">
+                            <button class="btnNext" id="weekly" type="submit">
+                                    <a style="text-decoration: none;color:white;font-size: 18px;">Confirm</a></button>
+                        </div>
+                    </div>
+                </form>
+
+                <% } %>
+
+                    <% if (locals.network_type==3) { %>
+                        <form action="/monthlypackage" id="monthlypackage" method="POST">
+                            <div class="column">
+                                <div class="card">
+                                    <h2>Monthly</h2>
+                                    <h3>RS 75/Month</h3>
+                                    <input type="hidden" name="monthly" id="monthly" value="jazz-sku-1-month">
+                                    <input type="hidden" name="msisdn" id="msisdn" value="<%= msisdn %>">
+                                    <button class="btnNext" id="monthly" type="submit">
+                                        <a
+                                            style="text-decoration: none;color:white;font-size: 18px;">Confirm</a></button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <% } %>
+
+        </div>
+
+    </div>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="js/custom.js"></script>
+
+    <% if (locals.success) { %>
+
+        <script>
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                html: "<b><%= success %></b>",
+                customClass: 'swal-wide',
+                showConfirmationButton: true,
+                timer: 2500
+            })
+        </script>
+
+        <% } %>
+</body>
+
+</html>

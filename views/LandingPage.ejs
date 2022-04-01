@@ -14,8 +14,16 @@
             </p>
             <div>
                 <p style="text-align: center; color: white; font-size: 28px;">TRY 1 DAY FREE</p>
-                <a class="btnConfirm" href="/enternumber" style="text-decoration: none;color:white;font-size: 18px;padding:12px 30px">CONFIRM</a><br /><br />
-                <p style="font-size: 14px; font-weight: 400;margin:10px;">I agree to weekly recurring charges deduction from my mobile balance until Unsubscription</p>
+                <form action="/enternumber" method="POST">
+                    <% if (locals.company && locals.id) { %>
+                        <input type="hidden" name="company" id="company" value="<%= company %>">
+                        <input type="hidden" name="id" id="id" value="<%= id %>">
+                        <% } %>
+                            <button class="btnNext" type="submit">
+                        <a style="text-decoration: none;color:white;font-size: 18px;">NEXT</a></button>
+                </form>
+                <br/>
+                <p style="font-size: 19px; font-weight: 400;margin:10px;">I agree to weekly recurring charges deduction from my mobile balance until Unsubscription</p>
 
             </div>
     </div>

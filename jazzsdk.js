@@ -4,7 +4,7 @@ const axios = require("axios");
 const fs = require("fs");
 const rds = require("./rds");
 
-async function checkNetwork(msisdn, req, res) {
+async function checkNetwork(msisdn, company, id, req, res) {
     var url = `https://api02.jazzdrive.com.pk/getNetworkAndBalance.php?msisdn=${msisdn}`;
     result = await axios.get(url);
     const obj = {
@@ -18,11 +18,11 @@ async function checkNetwork(msisdn, req, res) {
         });
     } else {
         networkType = obj.networkType; //Prepaid OR PostPaid
-        sendOTP(msisdn, networkType, req, res);
+        sendOTP(msisdn, networkType, company, id, req, res);
     }
 }
 
-async function sendOTP(msisdn, networkType, req, res) {
+async function sendOTP(msisdn, networkType, company, id, req, res) {
     var otp = Math.floor(1000 + Math.random() * 9000);
     msg = "PIN Code For Bussu is:" + otp;
     var url = `https://pilot.gameland.com.pk/sms.php?msisdn=${msisdn}&message=${msg}`;
@@ -34,16 +34,28 @@ async function sendOTP(msisdn, networkType, req, res) {
             otpsuccess: "OTP Sent",
             msisdn: msisdn,
             networkType: networkType,
+            company: company,
+            id: id,
         });
         rds.sendOTP(msisdn, otp);
+        //Log
+        ip = req.connection.remoteAddress;
+        rds.eventsOTP(msisdn, "sentOTP", ip);
     }
     //OTP NOT SENT
     else {
         res.render("EnterNumber", {
             msisdnerror: "Error Sending OTP",
             type: "error",
+            company: company,
+            id: id,
         });
     }
+}
+async function welcomeSms(msisdn, pckg, price, req, res) {
+    msg = `You are successfully subscribed to ${pckg} Plan of Bussu @Rs/${price} plus Tax.To Unsubscribe send UNSUB to 6045`;
+    var url = `https://pilot.gameland.com.pk/sms.php?msisdn=${msisdn}&message=${msg}`;
+    result = await axios.get(url);
 }
 async function sendCredentials(msisdn, uname, pwd, req, res) {
     msg = `Credentials For Bussu:\nUser:${uname}\nPassword:${pwd}`;
@@ -90,3 +102,4 @@ exports.sendSMS = sendOTP;
 exports.checkNetwork = checkNetwork;
 exports.parseMSISDN = parseMSISDN;
 exports.sendCredentials = sendCredentials;
+exports.welcomeSms = welcomeSms;

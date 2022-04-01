@@ -8,13 +8,29 @@ const rds = require("./rds");
 router.get("/", function(req, res) {
     res.render("LandingPage");
 });
+router.get("/:company/:id", function(req, res) {
+    company = req.params.company;
+    id = req.params.id;
+    res.render("LandingPage", {
+        company: company,
+        id: id,
+    });
+});
 //Enter MSISDN
-router.get("/enternumber", function(req, res) {
-    res.render("EnterNumber");
+router.post("/enternumber", function(req, res) {
+    company = req.body.company;
+    id = req.body.id;
+    console.log(company, id);
+    res.render("EnterNumber", {
+        company: company,
+        id: id,
+    });
 });
 //Verify MSISDN
 router.post("/numberverify", function(req, res) {
     msisdn = req.body.msisdn;
+    company = req.body.company;
+    id = req.body.id;
     msisdn = jazzsdk.parseMSISDN(msisdn);
     if (msisdn == null || !msisdn) {
         res.render("EnterNumber", {
@@ -22,11 +38,13 @@ router.post("/numberverify", function(req, res) {
             type: "error",
         });
     } else {
-        jazzsdk.checkNetwork(msisdn, req, res);
+        jazzsdk.checkNetwork(msisdn, company, id, req, res);
     }
 });
 //Verify OTP
 router.post("/otpverify", function(req, res) {
+    company = req.body.company;
+    id = req.body.id;
     msisdn = req.body.msisdn;
     networkType = req.body.networkType;
     ist = req.body.ist;
@@ -34,29 +52,32 @@ router.post("/otpverify", function(req, res) {
     third = req.body.third;
     fourth = req.body.fourth;
     otp = ist + sec + third + fourth;
-    result = rds.verifyOTP(msisdn, otp, networkType, req, res);
+    result = rds.verifyOTP(msisdn, otp, networkType, company, id, req, res);
 });
 //Resend OTP
 router.post("/resendotp", function(req, res) {
     msisdn = req.body.msisdn;
     networkType = req.body.networkType;
-    jazzsdk.sendOTP(msisdn, networkType, req, res);
+    jazzsdk.sendOTP(msisdn, networkType, company, id, req, res);
 });
 
 router.post("/dailypackage", function(req, res) {
+    user_status = req.body.user_status;
     pckg = req.body.daily;
     msisdn = req.body.msisdn;
-    bussusdk.createSubscription(msisdn, pckg, req, res);
+    bussusdk.createSubscription(msisdn, pckg, user_status, req, res);
 });
 router.post("/weeklypackage", function(req, res) {
+    user_status = req.body.user_status;
     pckg = req.body.weekly;
     msisdn = req.body.msisdn;
-    bussusdk.createSubscription(msisdn, pckg, req, res);
+    bussusdk.createSubscription(msisdn, pckg, user_status, req, res);
 });
 router.post("/monthlypackage", function(req, res) {
+    user_status = req.body.user_status;
     pckg = req.body.monthly;
     msisdn = req.body.msisdn;
-    bussusdk.createSubscription(msisdn, pckg, req, res);
+    bussusdk.createSubscription(msisdn, pckg, user_status, req, res);
 });
 
 //Change Password API
@@ -65,7 +86,11 @@ router.get("/renewpassword", function(req, res) {
     pwd = req.body.password;
     rds.renewPassword(msisdn, pwd, req, res);
 });
-
+//Unsub User
+router.get("/unsubuser", function(req, res) {
+    msisdn = req.body.msisdn;
+    bussusdk.deleteAccount(msisdn, req, res);
+});
 router.get("*", function(req, res) {
     res.sendFile("views/404.html", { root: __dirname });
 });

@@ -4,6 +4,7 @@ const isset = require("isset");
 const jazzsdk = require("./jazzsdk");
 const bussusdk = require("./bussusdk");
 const fs = require("fs");
+var ip = require("ip");
 
 var con = mysql.createConnection({
     host: "127.0.0.1",
@@ -27,7 +28,6 @@ function subscribeUser(msisdn) {
     sql = `UPDATE subscribers SET status = "1" WHERE msisdn = ${msisdn}`;
     con.query(sql, function(err, result) {
         if (err) throw err;
-        console.log(result);
     });
 }
 
@@ -35,6 +35,11 @@ function unSubscribeUser(msisdn) {
     sql = `UPDATE subscribers SET status = "0" WHERE msisdn = ${msisdn}`;
     con.query(sql, function(err, result) {
         if (err) throw err;
+        if (result.changedRows != 0) {
+            return res.status(200).json({ status: "success" });
+        } else {
+            return res.status(400).json({ status: "error" });
+        }
     });
 }
 

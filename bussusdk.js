@@ -5,6 +5,7 @@ const date = require("date-and-time");
 const rds = require("./rds");
 const jazzsdk = require("./jazzsdk");
 const msc_db = require("./msc_db");
+var ip = require("ip");
 
 function createAccount(msisdn, network_type, company, id, req, res) {
     var postData = querystring.stringify({
@@ -21,14 +22,13 @@ function createAccount(msisdn, network_type, company, id, req, res) {
         .then((response) => {
             obj = {
                 username: response.data.username,
-                pwd: response.data.pwd,
+                pwd: response.data.password,
             };
             //Existing Deleted User
             if (obj.pwd == null) {
                 if (company && id) {
-                    rds.conversionTracking(company, id, "existinguser", msisdn);
+                    rds.conversionTracking(company, id, "no", msisdn);
                 }
-                console.log(network_type);
                 rds.subscribeUser(msisdn);
                 msc_db.subscribeUser(msisdn);
                 res.render("PackageDetails", {
@@ -41,8 +41,6 @@ function createAccount(msisdn, network_type, company, id, req, res) {
             else {
                 uname = obj.username;
                 pwd = obj.pwd;
-                ip = req.connection.remoteAddress;
-                rds.eventsOTP(msisdn, "newUser", ip);
                 rds.addSubscriber(msisdn, uname, pwd, network_type);
                 msc_db.addUser(msisdn, uname, pwd, network_type);
                 if (company && id) {
@@ -62,11 +60,9 @@ function createAccount(msisdn, network_type, company, id, req, res) {
             };
             //Existing Active User
             if ((obj.status = 409)) {
-                ip = req.connection.remoteAddress;
                 if (company && id) {
-                    rds.conversionTracking(company, id, "existinguser", msisdn);
+                    rds.conversionTracking(company, id, "no", msisdn);
                 }
-                rds.eventsOTP(msisdn, "existingUser", ip);
                 rds.subscribeUser(msisdn);
                 msc_db.subscribeUser(msisdn);
                 rds.subscriberCredentials(msisdn, req, res);
@@ -107,7 +103,7 @@ function createSubscription(msisdn, pckg, user_status, req, res) {
             if (obj.data == "") {
                 rds.setPackage(msisdn, pckg);
                 msc_db.setPackageMSC(msisdn, pckg);
-                //Indefinite Subscription
+                //For Indefinite Subscription
                 createSubscription(msisdn, pckg, user_status, req, res);
             }
         })
@@ -115,7 +111,7 @@ function createSubscription(msisdn, pckg, user_status, req, res) {
             obj = {
                 data: err.response.data,
             };
-            //Indefinite Subscription
+            //Indefinite Subscription Exists
             if ((obj.data.status = 422)) {
                 var plan;
                 var price;
@@ -131,14 +127,19 @@ function createSubscription(msisdn, pckg, user_status, req, res) {
                     plan = "Monthly";
                     price = "75";
                 }
-                jazzsdk.welcomeSms(msisdn, plan, price);
+
+                //Existing Deleted User Restore Password
                 if (user_status == "deleteduser") {
+                    jazzsdk.reSubscriptionSms(msisdn, plan, price);
                     res
                         .writeHead(301, {
                             Location: "https://www.busuu.com/en/forgot-password?type=phone",
                         })
                         .end();
-                } else {
+                }
+                //New User
+                else {
+                    jazzsdk.welcomeSms(msisdn, plan, price);
                     rds.subscriberCredentials(msisdn, req, res);
                 }
             } else {

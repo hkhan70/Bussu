@@ -11,21 +11,21 @@
         <h1 style="font-size: 42px; font-weight: 600; color: #0986f4">BUSSU</h1>
         <h2 style="color: white; font-size: 32px; text-align: center">
             Speak a language in 10 minutes a day &trade;
-            </p>
-            <div>
-                <p style="text-align: center; color: white; font-size: 28px;">TRY 1 DAY FREE</p>
-                <form action="/enternumber" method="POST">
-                    <% if (locals.company && locals.id) { %>
-                        <input type="hidden" name="company" id="company" value="<%= company %>">
-                        <input type="hidden" name="id" id="id" value="<%= id %>">
-                        <% } %>
-                            <button class="btnNext" type="submit">
-                        <a style="text-decoration: none;color:white;font-size: 18px;">NEXT</a></button>
-                </form>
-                <br/>
-                <p style="font-size: 19px; font-weight: 400;margin:10px;">I agree to weekly recurring charges deduction from my mobile balance until Unsubscription</p>
+        </h2>
+        <div>
+            <p style="text-align: center; color: white; font-size: 28px;">TRY 1 DAY FREE</p>
+            <form action="/enternumber" method="POST" style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+                <% if (locals.company && locals.id) { %>
+                    <input type="hidden" name="company" id="company" value="<%= company %>">
+                    <input type="hidden" name="id" id="id" value="<%= id %>">
+                    <% } %>
+                        <button class="btnConfirm" type="submit">
+                        <a>PROCEED</a></button>
+            </form>
+            <br/>
+            <p class="notice">I agree to weekly recurring charges deduction from my mobile balance until Unsubscription</p>
 
-            </div>
+        </div>
     </div>
 </body>
 

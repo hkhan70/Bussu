@@ -3,6 +3,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 const axios = require("axios");
 const fs = require("fs");
 const rds = require("./rds");
+var ip = require("ip");
 
 async function checkNetwork(msisdn, company, id, req, res) {
     var url = `https://api02.jazzdrive.com.pk/getNetworkAndBalance.php?msisdn=${msisdn}`;
@@ -11,6 +12,7 @@ async function checkNetwork(msisdn, company, id, req, res) {
         status: result.data.status,
         networkType: result.data.networkCode,
     };
+    console.log(obj);
     if (obj.status == "error") {
         res.render("EnterNumber", {
             msisdnerror: "For Jazz Users Only",
@@ -39,7 +41,7 @@ async function sendOTP(msisdn, networkType, company, id, req, res) {
         });
         rds.sendOTP(msisdn, otp);
         //Log
-        ip = req.connection.remoteAddress;
+        ip = ip.address();
         rds.eventsOTP(msisdn, "sentOTP", ip);
     }
     //OTP NOT SENT
@@ -54,6 +56,11 @@ async function sendOTP(msisdn, networkType, company, id, req, res) {
 }
 async function welcomeSms(msisdn, pckg, price, req, res) {
     msg = `You are successfully subscribed to ${pckg} Plan of Bussu @Rs/${price} plus Tax.To Unsubscribe send UNSUB to 6045`;
+    var url = `https://pilot.gameland.com.pk/sms.php?msisdn=${msisdn}&message=${msg}`;
+    result = await axios.get(url);
+}
+async function reSubscriptionSms(msisdn, pckg, price, req, res) {
+    msg = `You are successfully resubscribed to ${pckg} Plan of Bussu @Rs/${price} plus Tax.To Unsubscribe send UNSUB to 6045`;
     var url = `https://pilot.gameland.com.pk/sms.php?msisdn=${msisdn}&message=${msg}`;
     result = await axios.get(url);
 }
@@ -103,3 +110,4 @@ exports.checkNetwork = checkNetwork;
 exports.parseMSISDN = parseMSISDN;
 exports.sendCredentials = sendCredentials;
 exports.welcomeSms = welcomeSms;
+exports.reSubscriptionSms = reSubscriptionSms;

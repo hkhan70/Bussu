@@ -3,14 +3,17 @@ var router = express.Router();
 const jazzsdk = require("./jazzsdk");
 const bussusdk = require("./bussusdk");
 const rds = require("./rds");
+var ip = require("ip");
 
 //Landing Page
 router.get("/", function(req, res) {
     res.render("LandingPage");
 });
-router.get("/:company/:id", function(req, res) {
-    company = req.params.company;
-    id = req.params.id;
+
+router.get("/:id", function(req, res) {
+    str = req.params.id;
+    company = str.split("=")[0];
+    id = str.split("=")[1];
     res.render("LandingPage", {
         company: company,
         id: id,
@@ -81,16 +84,17 @@ router.post("/monthlypackage", function(req, res) {
 });
 
 //Change Password API
-router.get("/renewpassword", function(req, res) {
+router.put("/renewpassword", function(req, res) {
     msisdn = req.body.msisdn;
     pwd = req.body.password;
     rds.renewPassword(msisdn, pwd, req, res);
 });
 //Unsub User
-router.get("/unsubuser", function(req, res) {
+router.delete("/unsubuser", function(req, res) {
     msisdn = req.body.msisdn;
     bussusdk.deleteAccount(msisdn, req, res);
 });
+
 router.get("*", function(req, res) {
     res.sendFile("views/404.html", { root: __dirname });
 });

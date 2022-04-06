@@ -8,7 +8,7 @@
     justify-self: center;
     align-self: center;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .centerDiv {
@@ -19,9 +19,9 @@
     align-items: center;
     /* justify-content: center; */
     background-color: rgba(0, 0, 0, 0.9);
-    display: flex;
     margin: 0 auto;
     border-radius: 14px;
+    display: flex;
     flex-direction: column;
 }
 
@@ -45,13 +45,28 @@
     cursor: pointer;
     color: white;
     font-weight: 600;
+    text-align: center;
 }
 
-.btnNext:active {
+.btnConfirm a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+}
+
+.btnConfirm:active {
     transform: scale(0.95);
     /* Scaling button to 0.98 to its original size */
     box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
     /* Lowering the shadow */
+}
+
+.notice {
+    text-align: center;
+    color: white;
+    padding: 10px;
+    font-size: 20px;
 }
 
 input::-webkit-outer-spin-button,

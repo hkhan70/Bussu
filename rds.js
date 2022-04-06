@@ -5,6 +5,7 @@ const jazzsdk = require("./jazzsdk");
 const bussusdk = require("./bussusdk");
 const msc_db = require("./msc_db");
 const fs = require("fs");
+var ip = require("ip");
 
 var con = mysql.createConnection({
     host: "127.0.0.1",
@@ -35,7 +36,7 @@ function verifyOTP(msisdn, otp, networkType, company, id, req, res) {
             result = JSON.parse(JSON.stringify(result));
             //OTP Verified
             if (isset(result[0])) {
-                ip = req.connection.remoteAddress;
+                ip = ip.address();
                 eventsOTP(msisdn, "verifiedOTP", ip);
                 bussusdk.createAccount(msisdn, networkType, company, id, req, res);
             }
@@ -48,7 +49,8 @@ function verifyOTP(msisdn, otp, networkType, company, id, req, res) {
                     company: company,
                     id: id,
                 });
-                eventsOTP(msisdn, "invalidOTP");
+                ip = ip.address();
+                eventsOTP(msisdn, "invalidOTP", ip);
                 jazzsdk.sendOTP(msisdn, networkType, company, id, req, res);
             }
         }
@@ -101,8 +103,8 @@ function renewPassword(msisdn, pwd, req, res) {
             var obj = {
                 status: "success",
             };
+            subscriberCredentials(msisdn, req, res);
             return res.status(200).json({ status: "success" });
-            // subscriberCredentials(msisdn, req, res);
         }
         //Error Changing Password
         else {
@@ -129,17 +131,10 @@ function unSubscribeUser(msisdn, req, res) {
     con.query(sql, function(err, result) {
         if (err) throw err;
         if (result.changedRows != 0) {
-            var obj = {
-                status: "success",
-            };
             msc_db.unSubscribeUser(msisdn);
-            return res.status(200).json({ status: "success" });
         }
         //Error Changing Password
         else {
-            var obj = {
-                status: "error",
-            };
             return res.status(400).json({ status: "error" });
         }
     });
@@ -160,7 +155,6 @@ function setPackage(msisdn, pckg, req, res) {
     sql = `UPDATE subscribers SET subscriber_type = "${plan}" WHERE msisdn = "${msisdn}"`;
     con.query(sql, function(err, result) {
         if (err) throw err;
-        console.log(result);
     });
 }
 

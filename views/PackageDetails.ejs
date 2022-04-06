@@ -65,59 +65,70 @@
 </head>
 
 <body>
-    <div class="row" style=" height:100%; margin-top:200px">
-        <div style="background-color:rgb(49, 49, 49);padding: 5px;">
+    <div class="row" style=" height:100%; margin-top:150px">
+        <div style="background-color:rgb(49, 49, 49);padding: 5px;border-radius: 15px;">
             <h2 style="text-align: center;color:white;">Select Package For
                 <%= msisdn %>
             </h2>
+            <form action="/dailypackage" id="dailypackage" method="POST">
+                <div class="column">
+                    <div class="card">
+                        <h3>Prepaid</h3>
+                        <h2>Daily</h2>
+                        <h3>RS 4/Day</h3>
+                        <input type="hidden" name="daily" id="daily" value="jazz-sku-1-day">
+                        <input type="hidden" name="msisdn" id="msisdn" value="<%= msisdn %>">
+                        <input type="hidden" name="user_status" id="user_status" value="<%= user_status %>">
+                        <% if (locals.network_type==1 || locals.network_type==2) { %>
 
-            <% if (locals.network_type==1) { %>
-                <form action="/dailypackage" id="dailypackage" method="POST">
-                    <div class="column">
-                        <div class="card">
-                            <h2>Daily</h2>
-                            <h3>RS 4/Day</h3>
-                            <input type="hidden" name="daily" id="daily" value="jazz-sku-1-day">
-                            <input type="hidden" name="msisdn" id="msisdn" value="<%= msisdn %>">
-                            <input type="hidden" name="user_status" id="user_status" value="<%= user_status %>">
-                            <button class="btnNext" id="daily" type="submit">
-                                    <a style="text-decoration: none;color:white;font-size: 18px;">Confirm</a></button>
-                        </div>
-                    </div>
-                </form>
-                <form action="/weeklypackage" id="weeklypackage" method="POST">
-                    <div class="column">
-                        <div class="card">
-                            <h2>Weekly</h2>
-                            <h3>RS 25/Week</h3>
-                            <input type="hidden" name="weekly" id="weekly" value="jazz-sku-7-days">
-                            <input type="hidden" name="msisdn" id="msisdn" value="<%= msisdn %>">
-                            <input type="hidden" name="user_status" id="user_status" value="<%= user_status %>">
                             <button class="btnNext" id="weekly" type="submit">
                                     <a style="text-decoration: none;color:white;font-size: 18px;">Confirm</a></button>
-                        </div>
+
+                            <% } %>
                     </div>
-                </form>
+                </div>
+            </form>
+            <form action="/weeklypackage" id="weeklypackage" method="POST">
+                <div class="column">
+                    <div class="card">
+                        <h3>Prepaid</h3>
+                        <h2>Weekly</h2>
+                        <h3>RS 25/Week</h3>
+                        <input type="hidden" name="weekly" id="weekly" value="jazz-sku-7-days">
+                        <input type="hidden" name="msisdn" id="msisdn" value="<%= msisdn %>">
+                        <input type="hidden" name="user_status" id="user_status" value="<%= user_status %>">
+                        <% if (locals.network_type==1 || locals.network_type==2) { %>
 
-                <% } %>
+                            <button class="btnNext" id="weekly" type="submit">
+                                    <a style="text-decoration: none;color:white;font-size: 18px;">Confirm</a></button>
 
-                    <% if (locals.network_type==3) { %>
-                        <form action="/monthlypackage" id="monthlypackage" method="POST">
-                            <div class="column">
-                                <div class="card">
-                                    <h2>Monthly</h2>
-                                    <h3>RS 75/Month</h3>
-                                    <input type="hidden" name="monthly" id="monthly" value="jazz-sku-1-month">
-                                    <input type="hidden" name="msisdn" id="msisdn" value="<%= msisdn %>">
-                                    <input type="hidden" name="user_status" id="user_status" value="<%= user_status %>">
-                                    <button class="btnNext" id="monthly" type="submit">
-                                        <a
-                                            style="text-decoration: none;color:white;font-size: 18px;">Confirm</a></button>
-                                </div>
-                            </div>
-                        </form>
+                            <% } %>
 
-                        <% } %>
+                    </div>
+                </div>
+            </form>
+
+            <form action="/monthlypackage" id="monthlypackage" method="POST">
+                <div class="column">
+                    <div class="card">
+                        <h3>Postpaid</h3>
+                        <h2>Monthly</h2>
+                        <h3>RS 75/Month</h3>
+                        <input type="hidden" name="monthly" id="monthly" value="jazz-sku-1-month">
+                        <input type="hidden" name="msisdn" id="msisdn" value="<%= msisdn %>">
+                        <input type="hidden" name="user_status" id="user_status" value="<%= user_status %>">
+
+                        <% if (locals.network_type==3) { %>
+
+                            <button class="btnNext" id="monthly" type="submit">
+                                    <a style="text-decoration: none;color:white;font-size: 18px;">Confirm</a></button>
+
+                            <% } %>
+
+
+                    </div>
+                </div>
+            </form>
 
         </div>
 

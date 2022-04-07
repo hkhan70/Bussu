@@ -31,14 +31,13 @@ function subscribeUser(msisdn) {
     });
 }
 
-function unSubscribeUser(msisdn) {
+function unSubscribeUser(msisdn, req, res) {
     sql = `UPDATE subscribers SET status = "0" WHERE msisdn = ${msisdn}`;
     con.query(sql, function(err, result) {
         if (err) throw err;
-        if (result.changedRows != 0) {
-            return res.status(200).json({ status: "success" });
-        } else {
-            return res.status(400).json({ status: "error" });
+        else {
+            jazzsdk.unsubSms(msisdn);
+            return res.status(200).json({ detail: "Unsubscribed Successfully" });
         }
     });
 }

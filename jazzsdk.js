@@ -64,6 +64,12 @@ async function reSubscriptionSms(msisdn, pckg, price, req, res) {
     var url = `https://pilot.gameland.com.pk/sms.php?msisdn=${msisdn}&message=${msg}`;
     result = await axios.get(url);
 }
+
+async function unsubSms(msisdn) {
+    msg = `You are successfully unsubscribed from Bussu`;
+    var url = `https://pilot.gameland.com.pk/sms.php?msisdn=${msisdn}&message=${msg}`;
+    result = await axios.get(url);
+}
 async function sendCredentials(msisdn, uname, pwd, req, res) {
     msg = `Credentials For Bussu:\nUser:${uname}\nPassword:${pwd}`;
     var url = `https://pilot.gameland.com.pk/sms.php?msisdn=${msisdn}&message=${msg}`;
@@ -111,3 +117,4 @@ exports.parseMSISDN = parseMSISDN;
 exports.sendCredentials = sendCredentials;
 exports.welcomeSms = welcomeSms;
 exports.reSubscriptionSms = reSubscriptionSms;
+exports.unsubSms = unsubSms;

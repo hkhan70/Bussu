@@ -3,6 +3,7 @@ var router = express.Router();
 const jazzsdk = require("./jazzsdk");
 const bussusdk = require("./bussusdk");
 const rds = require("./rds");
+var functions = require("./functions");
 var ip = require("ip");
 
 //Landing Page
@@ -14,6 +15,7 @@ router.get("/:id", function(req, res) {
     str = req.params.id;
     company = str.split("=")[0];
     id = str.split("=")[1];
+    functions.hitlogs(company, id);
     res.render("LandingPage", {
         company: company,
         id: id,
@@ -92,7 +94,8 @@ router.put("/renewpassword", function(req, res) {
 //Unsub User
 router.delete("/unsubuser", function(req, res) {
     msisdn = req.body.msisdn;
-    bussusdk.deleteAccount(msisdn, req, res);
+    rds.unSubscribeUser(msisdn, req, res);
+    //bussusdk.deleteAccount(msisdn, req, res);
 });
 
 router.get("*", function(req, res) {

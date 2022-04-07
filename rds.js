@@ -130,12 +130,8 @@ function unSubscribeUser(msisdn, req, res) {
     sql = `UPDATE subscribers SET status = "0" WHERE msisdn = ${msisdn}`;
     con.query(sql, function(err, result) {
         if (err) throw err;
-        if (result.changedRows != 0) {
-            msc_db.unSubscribeUser(msisdn);
-        }
-        //Error Changing Password
         else {
-            return res.status(400).json({ status: "error" });
+            msc_db.unSubscribeUser(msisdn, req, res);
         }
     });
 }

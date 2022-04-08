@@ -131,11 +131,7 @@ function createSubscription(msisdn, pckg, user_status, req, res) {
                 //Existing Deleted User Restore Password
                 if (user_status == "deleteduser") {
                     jazzsdk.reSubscriptionSms(msisdn, plan, price);
-                    res
-                        .writeHead(301, {
-                            Location: "https://www.busuu.com/en/forgot-password?type=phone",
-                        })
-                        .end();
+                    rds.subscriberCredentials(msisdn, req, res);
                 }
                 //New User
                 else {
@@ -154,21 +150,16 @@ function createSubscription(msisdn, pckg, user_status, req, res) {
 }
 
 function deleteAccount(msisdn, req, res) {
-    var postData = querystring.stringify({
-        user_identifier: msisdn,
-        operator: "jazz",
-    });
-    let axiosConfig = {
-        headers: {
-            Authorization: "35ad97b75c9040c385ae603f733dc089",
-        },
-    };
     axios
-        .delete(
-            "https://partners.busuu.com/jazz/registration",
-            postData,
-            axiosConfig
-        )
+        .delete("https://partners.busuu.com/jazz/registration", {
+            headers: {
+                Authorization: "35ad97b75c9040c385ae603f733dc089",
+            },
+            data: {
+                user_identifier: msisdn,
+                operator: "jazz",
+            },
+        })
         .then((response) => {
             obj = {
                 data: response.data,

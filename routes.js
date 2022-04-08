@@ -52,15 +52,17 @@ router.post("/otpverify", function(req, res) {
     id = req.body.id;
     msisdn = req.body.msisdn;
     networkType = req.body.networkType;
-    ist = req.body.ist;
-    sec = req.body.sec;
-    third = req.body.third;
-    fourth = req.body.fourth;
+    ist = req.body.digit1;
+    sec = req.body.digit2;
+    third = req.body.digit3;
+    fourth = req.body.digit4;
     otp = ist + sec + third + fourth;
     result = rds.verifyOTP(msisdn, otp, networkType, company, id, req, res);
 });
 //Resend OTP
 router.post("/resendotp", function(req, res) {
+    company = req.body.company;
+    id = req.body.id;
     msisdn = req.body.msisdn;
     networkType = req.body.networkType;
     jazzsdk.sendOTP(msisdn, networkType, company, id, req, res);
@@ -85,18 +87,18 @@ router.post("/monthlypackage", function(req, res) {
     bussusdk.createSubscription(msisdn, pckg, user_status, req, res);
 });
 
-//Change Password API
-router.put("/renewpassword", function(req, res) {
-    msisdn = req.body.msisdn;
-    pwd = req.body.password;
-    rds.renewPassword(msisdn, pwd, req, res);
-});
 //Unsub User
-router.delete("/unsubuser", function(req, res) {
-    msisdn = req.body.msisdn;
-    rds.unSubscribeUser(msisdn, req, res);
-    //bussusdk.deleteAccount(msisdn, req, res);
+router.get("/unsubuser/:msisdn", function(req, res) {
+    msisdn = req.params.msisdn;
+    bussusdk.deleteAccount(msisdn, req, res);
 });
+
+//Change Password API
+// router.put("/renewpassword", function(req, res) {
+//     msisdn = req.body.msisdn;
+//     pwd = req.body.password;
+//     rds.renewPassword(msisdn, pwd, req, res);
+// });
 
 router.get("*", function(req, res) {
     res.sendFile("views/404.html", { root: __dirname });

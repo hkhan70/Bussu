@@ -117,9 +117,6 @@ function renewPassword(msisdn, pwd, req, res) {
 }
 
 function subscribeUser(msisdn) {
-    const now = new Date();
-    current = date.format(now, "YYYY-MM-DD HH:mm:ss");
-    //sql = `UPDATE subscribers SET status = "1",subscription_date="${current}" WHERE msisdn = ${msisdn}`;
     sql = `UPDATE subscribers SET status = "1" WHERE msisdn = ${msisdn}`;
     con.query(sql, function(err, result) {
         if (err) throw err;
@@ -162,6 +159,7 @@ function conversionTracking(company, id, yesno, msisdn) {
         if (err) throw err;
     });
 }
+
 exports.addSubscriber = addSubscriber;
 exports.subscriberCredentials = subscriberCredentials;
 exports.subscribeUser = subscribeUser;

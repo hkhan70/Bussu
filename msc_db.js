@@ -3,6 +3,7 @@ const date = require("date-and-time");
 const isset = require("isset");
 const jazzsdk = require("./jazzsdk");
 const bussusdk = require("./bussusdk");
+const rds = require("./rds");
 const fs = require("fs");
 var ip = require("ip");
 
@@ -17,7 +18,7 @@ var con = mysql.createConnection({
 function addUser(msisdn, user, password, network_type) {
     const now = new Date();
     current = date.format(now, "YYYY-MM-DD HH:mm:ss");
-    var sql = `INSERT INTO subscribers (msisdn, user, subscription_date, password,status, network_type,last_billed_date)VALUES(${msisdn},${user},'${current}','${password}',${1},${network_type},'${current}')`;
+    var sql = `INSERT INTO subscribers (msisdn, user, subscription_date, password,status, network_type)VALUES(${msisdn},${user},'${current}','${password}',${1},${network_type})`;
     con.query(sql, function(err, result) {
         if (err) throw err;
     });
@@ -36,6 +37,8 @@ function unSubscribeUser(msisdn, req, res) {
     con.query(sql, function(err, result) {
         if (err) throw err;
         else {
+            ip = ip.address();
+            rds.eventsOTP(msisdn, "unsubUser", ip);
             jazzsdk.unsubSms(msisdn);
             return res.status(200).json({ detail: "Unsubscribed Successfully" });
         }
@@ -56,7 +59,6 @@ function setPackageMSC(msisdn, pckg, req, res) {
     sql = `UPDATE subscribers SET subscriber_type = "${plan}" WHERE msisdn = "${msisdn}"`;
     con.query(sql, function(err, result) {
         if (err) throw err;
-        console.log(result);
     });
 }
 

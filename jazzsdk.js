@@ -12,7 +12,6 @@ async function checkNetwork(msisdn, company, id, req, res) {
         status: result.data.status,
         networkType: result.data.networkCode,
     };
-    console.log(obj);
     if (obj.status == "error") {
         res.render("EnterNumber", {
             msisdnerror: "For Jazz Users Only",
@@ -55,12 +54,12 @@ async function sendOTP(msisdn, networkType, company, id, req, res) {
     }
 }
 async function welcomeSms(msisdn, pckg, price, req, res) {
-    msg = `You are successfully subscribed to ${pckg} Plan of Bussu @Rs/${price} plus Tax.To Unsubscribe send UNSUB to 6045`;
+    msg = `You are successfully subscribed to ${pckg} Plan of Bussu @Rs ${price} plus Tax. To Unsubscribe send UNSUB to 6045`;
     var url = `https://pilot.gameland.com.pk/sms.php?msisdn=${msisdn}&message=${msg}`;
     result = await axios.get(url);
 }
 async function reSubscriptionSms(msisdn, pckg, price, req, res) {
-    msg = `You are successfully resubscribed to ${pckg} Plan of Bussu @Rs/${price} plus Tax.To Unsubscribe send UNSUB to 6045`;
+    msg = `You are successfully resubscribed to ${pckg} Plan of Bussu @Rs ${price} plus Tax. To Unsubscribe send UNSUB to 6045`;
     var url = `https://pilot.gameland.com.pk/sms.php?msisdn=${msisdn}&message=${msg}`;
     result = await axios.get(url);
 }
@@ -71,7 +70,7 @@ async function unsubSms(msisdn) {
     result = await axios.get(url);
 }
 async function sendCredentials(msisdn, uname, pwd, req, res) {
-    msg = `Credentials For Bussu:\nUser:${uname}\nPassword:${pwd}`;
+    msg = `Credentials For Bussu\nUser:${uname}\nPassword:${pwd}`;
     var url = `https://pilot.gameland.com.pk/sms.php?msisdn=${msisdn}&message=${msg}`;
     result = await axios.get(url);
     stts = result.data.status;

@@ -25,7 +25,6 @@ router.get("/:id", function(req, res) {
 router.post("/enternumber", function(req, res) {
     company = req.body.company;
     id = req.body.id;
-    console.log(company, id);
     res.render("EnterNumber", {
         company: company,
         id: id,
@@ -57,7 +56,7 @@ router.post("/otpverify", function(req, res) {
     third = req.body.digit3;
     fourth = req.body.digit4;
     otp = ist + sec + third + fourth;
-    result = rds.verifyOTP(msisdn, otp, networkType, company, id, req, res);
+    rds.verifyOTP(msisdn, otp, networkType, company, id, req, res);
 });
 //Resend OTP
 router.post("/resendotp", function(req, res) {

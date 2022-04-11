@@ -25,7 +25,7 @@
         padding: 10px;
         background-color: rgba(0, 0, 0, 0.9);
       ">
-        <h1 style="font-size: 42px; font-weight: 600; color: #0986f4">BUSSU</h1>
+        <h1 style="font-size: 42px; font-weight: 600; color: #0986f4;font-family: 'Roboto', sans-serif;">BUSSU</h1>
         <div style="
           display: flex;
           flex-direction: column;
@@ -35,7 +35,7 @@
           padding: 30px 13px;
           border-radius: 14px;
         ">
-            <p style="font-size: 20px; font-weight: 600">
+            <p style="font-size: 20px; font-weight: 600;font-family: 'Montserrat', sans-serif;">
                 Enter OTP Sent To
                 <%= msisdn %>
             </p>
@@ -45,7 +45,7 @@
                 <input type="text" id="digit1" name="digit1" data-next="digit2" autofocus/>
                 <input type="text" id="digit2" name="digit2" data-next="digit3" data-previous="digit1" />
                 <input type="text" id="digit3" name="digit3" data-next="digit4" data-previous="digit2" />
-                <input type="text" id="digit4" name="digit4" data-previous="digit3" onkeyup="submitOTP()" />
+                <input type="text" id="digit4" name="digit4" data-previous="digit3" oninput="submitOTP()" />
                 <input type="hidden" name="msisdn" id="msisdn" value="<%= msisdn %>">
                 <input type="hidden" name="networkType" id="networkType" value="<%= networkType %>">
                 <input type="hidden" name="company" id="company" value="<%= company %>">

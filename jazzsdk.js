@@ -54,12 +54,12 @@ async function sendOTP(msisdn, networkType, company, id, req, res) {
     }
 }
 async function welcomeSms(msisdn, pckg, price, req, res) {
-    msg = `You are successfully subscribed to ${pckg} Plan of Bussu @Rs ${price} plus Tax. To Unsubscribe send UNSUB to 6045`;
+    msg = `You are successfully subscribed to ${pckg} Plan of Bussu @Rs ${price} plus Tax.`;
     var url = `https://pilot.gameland.com.pk/sms.php?msisdn=${msisdn}&message=${msg}`;
     result = await axios.get(url);
 }
 async function reSubscriptionSms(msisdn, pckg, price, req, res) {
-    msg = `You are successfully resubscribed to ${pckg} Plan of Bussu @Rs ${price} plus Tax. To Unsubscribe send UNSUB to 6045`;
+    msg = `You are successfully resubscribed to ${pckg} Plan of Bussu @Rs ${price} plus Tax.`;
     var url = `https://pilot.gameland.com.pk/sms.php?msisdn=${msisdn}&message=${msg}`;
     result = await axios.get(url);
 }

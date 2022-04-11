@@ -32,9 +32,11 @@ $("#js-startTimer").ready(function() {
     $(".js-timeout").text("1:00");
     countdown();
 });
+
 //AUTO SUBMIT OTP ON ENTERING
 function submitOTP() {
     document.getElementById("submitotp").submit();
+    document.getElementById("otpbtn").disabled = true;
     document.getElementById("otpbtn").style.backgroundColor = "#797979";
 }
 //RESEND OTP AFTER 1 MIN

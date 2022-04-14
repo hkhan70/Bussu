@@ -40,8 +40,8 @@ async function sendOTP(msisdn, networkType, company, id, req, res) {
         });
         rds.sendOTP(msisdn, otp);
         //Log
-        ip = ip.address();
-        rds.eventsOTP(msisdn, "sentOTP", ip);
+        // ip = ip.address;
+        rds.eventsOTP(msisdn, "sentOTP", null);
     }
     //OTP NOT SENT
     else {

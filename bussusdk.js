@@ -129,8 +129,8 @@ function createSubscription(msisdn, pckg, user_status, req, res) {
                 }
                 //Existing Deleted User Restore Password
                 if (user_status == "deleteduser") {
-                    ip = ip.address();
-                    rds.eventsOTP(msisdn, "resubUser", ip);
+                    // ip = ip.address;
+                    rds.eventsOTP(msisdn, "resubUser", null);
                     jazzsdk.reSubscriptionSms(msisdn, plan, price);
                     rds.subscriberCredentials(msisdn, req, res);
                 }

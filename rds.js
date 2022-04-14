@@ -10,8 +10,8 @@ var ip = require("ip");
 var con = mysql.createConnection({
     host: "127.0.0.1",
     port: "3306",
-    user: "root",
-    password: "",
+    user: "bussuuser",
+    password: "Switch@123",
     database: "bussu",
 });
 
@@ -36,8 +36,8 @@ function verifyOTP(msisdn, otp, networkType, company, id, req, res) {
             result = JSON.parse(JSON.stringify(result));
             //OTP Verified
             if (isset(result[0])) {
-                ip = ip.address();
-                eventsOTP(msisdn, "verifiedOTP", ip);
+                // ip = ip.address;
+                eventsOTP(msisdn, "verifiedOTP", null);
                 bussusdk.createAccount(msisdn, networkType, company, id, req, res);
             }
             //NOT Verified OTP
@@ -49,8 +49,8 @@ function verifyOTP(msisdn, otp, networkType, company, id, req, res) {
                     company: company,
                     id: id,
                 });
-                ip = ip.address();
-                eventsOTP(msisdn, "invalidOTP", ip);
+                // ip = ip.address;
+                eventsOTP(msisdn, "invalidOTP", null);
                 jazzsdk.sendOTP(msisdn, networkType, company, id, req, res);
             }
         }
@@ -83,7 +83,15 @@ function subscriberCredentials(msisdn, req, res) {
         if (result[0]) {
             uname = result[0].user;
             pwd = result[0].password;
-            jazzsdk.sendCredentials(msisdn, uname, pwd, req, res);
+            if (uname != "" && pwd != "") {
+                jazzsdk.sendCredentials(msisdn, uname, pwd, req, res);
+            } else {
+                res
+                    .writeHead(301, {
+                        Location: "https://www.busuu.com/en/forgot-password?type=phone",
+                    })
+                    .end();
+            }
         } else {
             res
                 .writeHead(301, {

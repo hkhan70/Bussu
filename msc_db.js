@@ -10,8 +10,8 @@ var ip = require("ip");
 var con = mysql.createConnection({
     host: "127.0.0.1",
     port: "3306",
-    user: "root",
-    password: "",
+    user: "bussuuser",
+    password: "Switch@123",
     database: "bussu_msc",
 });
 
@@ -37,8 +37,8 @@ function unSubscribeUser(msisdn, req, res) {
     con.query(sql, function(err, result) {
         if (err) throw err;
         else {
-            ip = ip.address();
-            rds.eventsOTP(msisdn, "unsubUser", ip);
+            // ip = ip.address;
+            rds.eventsOTP(msisdn, "unsubUser", null);
             jazzsdk.unsubSms(msisdn);
             return res.status(200).json({ detail: "Unsubscribed Successfully" });
         }

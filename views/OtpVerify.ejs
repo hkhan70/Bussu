@@ -48,39 +48,22 @@
                 <input type="hidden" name="company" id="company" value="<%= company %>">
                 <input type="hidden" name="id" id="id" value="<%= id %>">
             </form>
-            <!-- <% if (locals.otperror) { %>
+            <% if (locals.otperror) { %>
                 <div>
                     <div>
-                        <p style=" color: white;font-size: 20px;">
+                        <p style=" color: red;font-size: 25px;">
                             <span><i class="fa fa-times" aria-hidden="true"></i></span>
                             <%= otperror %>
                         </p>
                     </div>
                 </div>
-                <% } %> -->
+                <% } %>
         </div>
     </div>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="js/custom.js"></script>
-
-    <% if (locals.success) { %>
-
-        <script>
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                html: "<b><%= success %></b>",
-                customClass: 'swal-wide',
-                showConfirmationButton: true,
-                timer: 1500
-            })
-        </script>
-
-        <% } %>
-
-            <% if (locals.otpsuccess) { %>
-
+    <!-- <% if (locals.otpsuccess) { %>
                 <script>
                     Swal.fire({
                         position: 'center',
@@ -92,23 +75,8 @@
                     })
                 </script>
 
-                <% } %>
-                    <% if (locals.otperror) { %>
+                <% } %> -->
 
-                        <script>
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'error',
-                                title: "Error",
-                                text: " <%= otperror %>",
-                                customClass: 'swal-otp',
-                                showCancelButton: true,
-                                showConfirmButton: false,
-                                timer: 1500
-                            })
-                        </script>
-
-                        <% } %>
 </body>
 
 </html>

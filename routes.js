@@ -6,6 +6,9 @@ const rds = require("./rds");
 var functions = require("./functions");
 var ip = require("ip");
 
+router.get("/flushotps", function(req, res) {
+    rds.flushOTP();
+});
 //Landing Page
 router.get("/", function(req, res) {
     res.render("LandingPage");

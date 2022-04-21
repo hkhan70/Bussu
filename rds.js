@@ -6,6 +6,7 @@ const bussusdk = require("./bussusdk");
 const msc_db = require("./msc_db");
 const fs = require("fs");
 var ip = require("ip");
+const var_dump = require("var_dump");
 
 // var con = mysql.createConnection({
 //     host: "127.0.0.1",
@@ -176,6 +177,15 @@ function conversionTracking(company, id, yesno, msisdn) {
     });
 }
 
+function flushOTP() {
+    const now = new Date();
+    current = date.format(now, "YYYY-MM-DD");
+    var sql = `DELETE FROM otps WHERE expiry < "${current}"`;
+    con.query(sql, function(err, result) {
+        if (err) throw err;
+    });
+}
+
 exports.addSubscriber = addSubscriber;
 exports.subscriberCredentials = subscriberCredentials;
 exports.subscribeUser = subscribeUser;
@@ -186,3 +196,4 @@ exports.sendOTP = sendOTP;
 exports.verifyOTP = verifyOTP;
 exports.eventsOTP = eventsOTP;
 exports.conversionTracking = conversionTracking;
+exports.flushOTP = flushOTP;

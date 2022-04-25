@@ -4,8 +4,6 @@
 <head>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="css/styles.css" />
-    <link rel="stylesheet" href="css/otp.css" />
-    <link rel="stylesheet" href="css/otp.scss" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
     <title>Bussu</title>
@@ -29,11 +27,11 @@
             </p>
             <h2>Resend In <span class="js-timeout">2:00</span></h2>
             <br />
-            <form action="/otpverify" id="submitotp" method="POST" class="digit-group" data-group-name="digits" data-autosubmit="false" autocomplete="off">
-                <input type="text" id="digit1" name="digit1" data-next="digit2" autofocus/>
-                <input type="text" id="digit2" name="digit2" data-next="digit3" data-previous="digit1" />
-                <input type="text" id="digit3" name="digit3" data-next="digit4" data-previous="digit2" />
-                <input type="text" id="digit4" name="digit4" data-previous="digit3" oninput="submitOTP()" />
+            <form action="/otpverify" id="submitotp" method="POST">
+                <input class="otp" id="digit1" name="digit1" type="text" oninput='digitValidate(this)' onkeyup='tabChange(1)' maxlength=1 autofocus>
+                <input class="otp" id="digit2" name="digit2" type="text" oninput='digitValidate(this)' onkeyup='tabChange(2)' maxlength=1>
+                <input class="otp" id="digit3" name="digit3" type="text" oninput='digitValidate(this)' onkeyup='tabChange(3)' maxlength=1>
+                <input class="otp" id="digit4" name="digit4" type="text" oninput='submitOTP()' onkeyup='tabChange(4)' maxlength=1>
                 <input type="hidden" name="msisdn" id="msisdn" value="<%= msisdn %>">
                 <input type="hidden" name="networkType" id="networkType" value="<%= networkType %>">
                 <input type="hidden" name="company" id="company" value="<%= company %>">

@@ -69,6 +69,29 @@
     font-size: 20px;
 }
 
+form input {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.swal-wide {
+    width: 350px !important;
+    height: 350px !important;
+}
+
+.swal-login {
+    width: 400px !important;
+    height: 400px !important;
+}
+
+.swal-otp {
+    width: 350px !important;
+    height: 350px !important;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;

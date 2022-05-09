@@ -8,14 +8,6 @@ const fs = require("fs");
 var ip = require("ip");
 const var_dump = require("var_dump");
 
-// var con = mysql.createConnection({
-//     host: "127.0.0.1",
-//     port: "3306",
-//     user: "bussuuser",
-//     password: "Switch@123",
-//     database: "bussu",
-// });
-
 var con = mysql.createConnection({
     host: "127.0.0.1",
     port: "3306",

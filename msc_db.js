@@ -7,20 +7,12 @@ const rds = require("./rds");
 const fs = require("fs");
 var ip = require("ip");
 
-// var con = mysql.createConnection({
-//     host: "127.0.0.1",
-//     port: "3306",
-//     user: "bussuuser",
-//     password: "Switch@123",
-//     database: "bussu_msc",
-// });
-
 var con = mysql.createConnection({
     host: "127.0.0.1",
     port: "3306",
     user: "root",
     password: "",
-    database: "bussu",
+    database: "bussu_msc",
 });
 
 function addUser(msisdn, user, password, network_type) {

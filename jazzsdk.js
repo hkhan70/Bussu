@@ -4,7 +4,6 @@ const axios = require("axios");
 const fs = require("fs");
 const rds = require("./rds");
 var ip = require("ip");
-var smsmts = require("./smsmts");
 
 async function checkNetwork(msisdn, company, id, req, res) {
     var url = `https://api02.jazzdrive.com.pk/getNetworkAndBalance.php?msisdn=${msisdn}`;

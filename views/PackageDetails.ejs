@@ -4,72 +4,6 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/styles.css" />
-    <link rel="stylesheet" href="css/otp.css" />
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-image: url("../images/books.jpg");
-        }
-        /* Float four columns side by side */
-        
-        .column {
-            float: left;
-            width: 33.3%;
-            padding: 0 10px;
-        }
-        /* Remove extra left and right margins, due to padding */
-        
-        .row {
-            width: 70%;
-            margin: 0 auto;
-        }
-        /* Clear floats after the columns */
-        
-        .row:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-        /* Responsive columns */
-        
-        @media screen and (max-width: 600px) {
-            .column {
-                width: 100%;
-                display: block;
-                margin-bottom: 20px;
-            }
-        }
-        /* Style the counter cards */
-        
-        .card {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            padding: 16px;
-            text-align: center;
-            background: linear-gradient(150deg, #39ef74, #4600f1 100%);
-            color: white;
-            border-radius: 15px;
-        }
-        
-        .card:hover {
-            transform: scale(1.1);
-            background: linear-gradient(150deg, #f731db, #4600f1 100%);
-            color: black;
-            opacity: 1;
-            transition: 0.3s;
-        }
-        
-        .btnNext {
-            background-color: rgb(125, 121, 199);
-        }
-        
-        .btnNext:hover {
-            background-color: orange;
-        }
-    </style>
 </head>
 
 <body>
@@ -93,6 +27,13 @@
                                     <a style="text-decoration: none;color:white;font-size: 18px;">Confirm</a></button>
 
                             <% } %>
+                                <% if (locals.network_type==3) { %>
+
+                                    <button class="btnNext" style="border: 1px solid #999999; background-color: #cccccc;color: #666666;" id="monthly" type="submit" disabled>
+                                        <a
+                                            style="text-decoration: none;color:#666666;font-size: 18px;pointer-events: none;">Confirm</a></button>
+
+                                    <% } %>
                     </div>
                 </div>
             </form>
@@ -111,6 +52,12 @@
                                     <a style="text-decoration: none;color:white;font-size: 18px;">Confirm</a></button>
 
                             <% } %>
+                                <% if (locals.network_type==3) { %>
+
+                                    <button class="btnNext" style="border: 1px solid #999999; background-color: #cccccc;color: #666666;" id="monthly" type="submit" disabled>
+                                        <a
+                                            style="text-decoration: none;color:#666666;font-size: 18px;pointer-events: none;">Confirm</a></button>
+                                    <% } %>
 
                     </div>
                 </div>
@@ -126,12 +73,18 @@
                         <input type="hidden" name="msisdn" id="msisdn" value="<%= msisdn %>">
                         <input type="hidden" name="user_status" id="user_status" value="<%= user_status %>">
 
-                        <% if (locals.network_type==3) { %>
+                        <% if (locals.network_type==1 || locals.network_type==2) { %>
 
-                            <button class="btnNext" id="monthly" type="submit">
-                                    <a style="text-decoration: none;color:white;font-size: 18px;">Confirm</a></button>
-
+                            <button class="btnNext" style="border: 1px solid #999999; background-color: #cccccc;color: #666666;" id="monthly" type="submit" disabled>
+                                <a
+                                    style="text-decoration: none;color:#666666;font-size: 18px;pointer-events: none;">Confirm</a></button>
                             <% } %>
+                                <% if (locals.network_type==3) { %>
+
+                                    <button class="btnNext" id="weekly" type="submit">
+                                        <a style="text-decoration: none;color:white;font-size: 18px;">Confirm</a></button>
+
+                                    <% } %>
 
 
                     </div>

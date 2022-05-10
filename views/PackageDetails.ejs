@@ -4,20 +4,24 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <div class="row" style=" height:100%; margin-top:150px">
-        <div style="background-color:rgb(49, 49, 49);padding: 5px;border-radius: 15px;">
-            <h2 style="text-align: center;color:white;font-family: 'Montserrat', sans-serif;">Select Package For
+        <div>
+            <!-- <div style="background-color:rgb(49, 49, 49);padding: 5px;border-radius: 15px;"> -->
+            <!-- <h2 style="text-align: center;color:white;font-family: 'Montserrat', sans-serif;">Select Package For
                 <%= msisdn %>
-            </h2>
+            </h2> -->
             <form action="/dailypackage" id="dailypackage" method="POST">
                 <div class="column">
                     <div class="card">
-                        <h3>Prepaid</h3>
-                        <h2>Daily</h2>
-                        <h3>RS 4/Day</h3>
+                        <h2 class="font">PREPAID</h2>
+                        <h2 class="font">DAILY PLAN</h2>
+                        <h3 class="font">RS 4/Day</h3>
                         <input type="hidden" name="daily" id="daily" value="jazz-sku-1-day">
                         <input type="hidden" name="msisdn" id="msisdn" value="<%= msisdn %>">
                         <input type="hidden" name="user_status" id="user_status" value="<%= user_status %>">
@@ -40,9 +44,9 @@
             <form action="/weeklypackage" id="weeklypackage" method="POST">
                 <div class="column">
                     <div class="card">
-                        <h3>Prepaid</h3>
-                        <h2>Weekly</h2>
-                        <h3>RS 25/Week</h3>
+                        <h2 class="font">PREPAID</h2>
+                        <h2 class="font">WEEKLY PLAN</h2>
+                        <h3 class="font">RS 25/Week</h3>
                         <input type="hidden" name="weekly" id="weekly" value="jazz-sku-7-days">
                         <input type="hidden" name="msisdn" id="msisdn" value="<%= msisdn %>">
                         <input type="hidden" name="user_status" id="user_status" value="<%= user_status %>">
@@ -66,9 +70,9 @@
             <form action="/monthlypackage" id="monthlypackage" method="POST">
                 <div class="column">
                     <div class="card">
-                        <h3>Postpaid</h3>
-                        <h2>Monthly</h2>
-                        <h3>RS 75/Month</h3>
+                        <h2 class="font">POSTPAID</h2>
+                        <h2 class="font">MONTHLY PLAN</h2>
+                        <h3 class="font">RS 75/Month</h3>
                         <input type="hidden" name="monthly" id="monthly" value="jazz-sku-1-month">
                         <input type="hidden" name="msisdn" id="msisdn" value="<%= msisdn %>">
                         <input type="hidden" name="user_status" id="user_status" value="<%= user_status %>">

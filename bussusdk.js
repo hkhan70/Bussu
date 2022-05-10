@@ -86,7 +86,6 @@ function createSubscription(msisdn, pckg, user_status, req, res) {
         sku: pckg,
         operation: "subscribe",
     });
-
     let axiosConfig = {
         headers: {
             Authorization: "35ad97b75c9040c385ae603f733dc089",

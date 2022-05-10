@@ -27,7 +27,7 @@
             </p>
             <h2>Resend In <span class="js-timeout">2:00</span></h2>
             <br />
-            <form action="/otpverify" id="submitotp" method="POST">
+            <form autocomplete="off" action="/otpverify" id="submitotp" method="POST">
                 <input class="otp" id="digit1" name="digit1" type="text" oninput='digitValidate(this)' onkeyup='tabChange(1)' maxlength=1 autofocus>
                 <input class="otp" id="digit2" name="digit2" type="text" oninput='digitValidate(this)' onkeyup='tabChange(2)' maxlength=1>
                 <input class="otp" id="digit3" name="digit3" type="text" oninput='digitValidate(this)' onkeyup='tabChange(3)' maxlength=1>

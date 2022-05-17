@@ -38,7 +38,8 @@ function verifyOTP(msisdn, otp, networkType, company, id, req, res) {
             //OTP Verified
             if (isset(result[0])) {
                 // ip = ip.address;
-                eventsOTP(msisdn, "verifiedOTP", null);
+                ip = req.ip;
+                eventsOTP(msisdn, "verifiedOTP", ip);
                 bussusdk.createAccount(msisdn, networkType, company, id, req, res);
             }
             //NOT Verified OTP
@@ -51,7 +52,8 @@ function verifyOTP(msisdn, otp, networkType, company, id, req, res) {
                     id: id,
                 });
                 // ip = ip.address;
-                eventsOTP(msisdn, "invalidOTP", null);
+                ip = req.ip;
+                eventsOTP(msisdn, "invalidOTP", ip);
                 jazzsdk.sendOTP(msisdn, networkType, company, id, req, res);
             }
         }

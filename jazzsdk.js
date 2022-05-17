@@ -39,9 +39,10 @@ async function sendOTP(msisdn, networkType, company, id, req, res) {
             id: id,
         });
         rds.sendOTP(msisdn, otp);
+        ip = req.ip;
         //Log
         // ip = ip.address;
-        rds.eventsOTP(msisdn, "sentOTP", null);
+        rds.eventsOTP(msisdn, "sentOTP", ip);
     }
     //OTP NOT SENT
     else {

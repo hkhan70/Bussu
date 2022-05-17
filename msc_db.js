@@ -37,8 +37,8 @@ function unSubscribeUser(msisdn, req, res) {
     con.query(sql, function(err, result) {
         if (err) throw err;
         else {
-            // ip = ip.address;
-            rds.eventsOTP(msisdn, "unsubUser", null);
+            ip = req.ip;
+            rds.eventsOTP(msisdn, "unsubUser", ip);
             jazzsdk.unsubSms(msisdn);
             return res.status(200).json({ detail: "Unsubscribed Successfully" });
         }

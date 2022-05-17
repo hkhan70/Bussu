@@ -4,7 +4,6 @@ const jazzsdk = require("./jazzsdk");
 const bussusdk = require("./bussusdk");
 const rds = require("./rds");
 var functions = require("./functions");
-var ip = require("ip");
 
 //Landing Page
 router.get("/", function(req, res) {

@@ -162,10 +162,10 @@ function setPackage(msisdn, pckg, req, res) {
     });
 }
 
-function conversionTracking(company, id, yesno, msisdn) {
+function conversionTracking(company, id, yesno, msisdn, ip) {
     const now = new Date();
     current = date.format(now, "YYYY-MM-DD HH:mm:ss");
-    var sql = `INSERT INTO conversion_tracking (tracking_id, time, conversion, partner,msisdn)VALUES("${id}","${current}",'${yesno}','${company}',"${msisdn}")`;
+    var sql = `INSERT INTO conversion_tracking (tracking_id, time, conversion, partner,msisdn,ip)VALUES("${id}","${current}",'${yesno}','${company}',"${msisdn}",'${ip}')`;
     con.query(sql, function(err, result) {
         if (err) throw err;
     });

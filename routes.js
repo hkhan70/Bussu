@@ -50,6 +50,7 @@ router.post("/otpverify", function(req, res) {
     id = req.body.id;
     msisdn = req.body.msisdn;
     networkType = req.body.networkType;
+    //FOR OTP MERGING
     ist = req.body.digit1;
     sec = req.body.digit2;
     third = req.body.digit3;

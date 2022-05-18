@@ -27,7 +27,8 @@ function createAccount(msisdn, network_type, company, id, req, res) {
             //Existing Deleted User
             if (obj.pwd == null) {
                 if (company && id) {
-                    rds.conversionTracking(company, id, "no", msisdn);
+                    ip = req.ip;
+                    rds.conversionTracking(company, id, "no", msisdn, ip);
                 }
                 rds.subscribeUser(msisdn);
                 msc_db.subscribeUser(msisdn);
@@ -44,7 +45,8 @@ function createAccount(msisdn, network_type, company, id, req, res) {
                 rds.addSubscriber(msisdn, uname, pwd, network_type);
                 msc_db.addUser(msisdn, uname, pwd, network_type);
                 if (company && id) {
-                    rds.conversionTracking(company, id, "yes", msisdn);
+                    ip = req.ip;
+                    rds.conversionTracking(company, id, "yes", msisdn, ip);
                 }
                 res.render("PackageDetails", {
                     user_status: "newuser",
@@ -61,7 +63,8 @@ function createAccount(msisdn, network_type, company, id, req, res) {
             //Existing Active User
             if ((obj.status = 409)) {
                 if (company && id) {
-                    rds.conversionTracking(company, id, "no", msisdn);
+                    ip = req.ip;
+                    rds.conversionTracking(company, id, "no", msisdn, ip);
                 }
                 rds.subscribeUser(msisdn);
                 msc_db.subscribeUser(msisdn);

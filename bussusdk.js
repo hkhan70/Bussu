@@ -40,10 +40,16 @@ function createAccount(msisdn, network_type, company, id, req, res) {
             }
             //First Time User
             else {
+                var method;
                 uname = obj.username;
                 pwd = obj.pwd;
-                rds.addSubscriber(msisdn, uname, pwd, network_type);
-                msc_db.addUser(msisdn, uname, pwd, network_type);
+                if (req.header("user-agent").indexOf("Mobile") != -1) {
+                    method = "mobile";
+                } else {
+                    method = "pc";
+                }
+                rds.addSubscriber(msisdn, uname, pwd, network_type, method);
+                msc_db.addUser(msisdn, uname, pwd, network_type, method);
                 if (company && id) {
                     ip = req.ip;
                     rds.conversionTracking(company, id, "yes", msisdn, ip);

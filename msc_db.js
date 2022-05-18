@@ -15,10 +15,10 @@ var con = mysql.createConnection({
     database: "bussu_msc",
 });
 
-function addUser(msisdn, user, password, network_type) {
+function addUser(msisdn, user, password, network_type, method) {
     const now = new Date();
     current = date.format(now, "YYYY-MM-DD HH:mm:ss");
-    var sql = `INSERT INTO subscribers (msisdn, user, subscription_date, password,status, network_type)VALUES(${msisdn},${user},'${current}','${password}',${1},${network_type})`;
+    var sql = `INSERT INTO subscribers (msisdn, user, subscription_date, password,status, network_type,subscription_method)VALUES(${msisdn},${user},'${current}','${password}',${1},${network_type},"${method}")`;
     con.query(sql, function(err, result) {
         if (err) throw err;
     });

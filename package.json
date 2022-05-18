@@ -19,6 +19,7 @@
     "ejs": "^3.1.6",
     "express": "^4.17.3",
     "express-fingerprint": "^1.2.2",
+    "express-useragent": "^1.0.15",
     "fs": "0.0.1-security",
     "ip": "^1.1.5",
     "isset": "^1.0.4",

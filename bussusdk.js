@@ -31,7 +31,7 @@ function createAccount(msisdn, network_type, company, id, req, res) {
                     rds.conversionTracking(company, id, "no", msisdn, ip);
                 }
                 rds.subscribeUser(msisdn);
-                msc_db.subscribeUser(msisdn);
+                //msc_db.subscribeUser(msisdn);
                 res.render("PackageDetails", {
                     user_status: "deleteduser",
                     msisdn: msisdn,
@@ -49,7 +49,7 @@ function createAccount(msisdn, network_type, company, id, req, res) {
                     method = "pc";
                 }
                 rds.addSubscriber(msisdn, uname, pwd, network_type, method);
-                msc_db.addUser(msisdn, uname, pwd, network_type, method);
+                //msc_db.addUser(msisdn, uname, pwd, network_type, method);
                 if (company && id) {
                     ip = req.ip;
                     rds.conversionTracking(company, id, "yes", msisdn, ip);
@@ -73,7 +73,7 @@ function createAccount(msisdn, network_type, company, id, req, res) {
                     rds.conversionTracking(company, id, "no", msisdn, ip);
                 }
                 rds.subscribeUser(msisdn);
-                msc_db.subscribeUser(msisdn);
+                //msc_db.subscribeUser(msisdn);
                 rds.subscriberCredentials(msisdn, req, res);
             } else {
                 res.render("EnterNumber", {
@@ -110,7 +110,7 @@ function createSubscription(msisdn, pckg, user_status, req, res) {
             //Successful Subscription
             if (obj.data == "") {
                 rds.setPackage(msisdn, pckg);
-                msc_db.setPackageMSC(msisdn, pckg);
+                //msc_db.setPackageMSC(msisdn, pckg);
                 //For Indefinite Subscription
                 createSubscription(msisdn, pckg, user_status, req, res);
             }

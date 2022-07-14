@@ -18,5 +18,4 @@ app.use(upload.array());
 app.use(express.static("public"));
 app.use(favicon(__dirname + "/public/images/favicon.png"));
 app.use("/", routes);
-
-app.listen(3003);
+app.listen(3001);

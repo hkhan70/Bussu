@@ -9,10 +9,10 @@ var ip = require("ip");
 const var_dump = require("var_dump");
 
 var con = mysql.createConnection({
-    host: "127.0.0.1",
+    host: "localhost",
     port: "3306",
-    user: "root",
-    password: "",
+    user: "admin",
+    password: "ptcl2021",
     database: "bussu",
 });
 
@@ -139,7 +139,11 @@ function unSubscribeUser(msisdn, req, res) {
     con.query(sql, function(err, result) {
         if (err) throw err;
         else {
-            msc_db.unSubscribeUser(msisdn, req, res);
+            //msc_db.unSubscribeUser(msisdn, req, res);
+            ip = req.ip;
+            eventsOTP(msisdn, "unsubUser", ip);
+            jazzsdk.unsubSms(msisdn);
+            return res.status(200).json({ detail: "Unsubscribed Successfully" });
         }
     });
 }
